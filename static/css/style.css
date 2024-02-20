@@ -1,0 +1,288 @@
+.fa-print{
+    font-size: 20px;
+}
+
+.fa-eye{
+    font-size: 15px;
+}
+
+.bx-world{
+    font-size: 35px;
+}
+
+.telechargement{
+    display: none;
+    margin-top: 180px;
+    text-align: center;
+    position: relative;
+}
+
+.top-up{
+    margin-top: -50px;
+}
+
+.spinner-map{
+    border-top: 10px solid #f11823;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    animation: progress 2s infinite;
+}
+
+.spinner {
+    border-top: 10px solid #3498db;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    animation: progress 2s infinite;
+}
+
+@keyframes progress {
+    0% {
+        width: 10%; /* Début de la barre de progression */
+    }
+    50% {
+        width: 90%; /* Milieu de la barre de progression */
+    }
+    100% {
+        width: 10%; /* Retour à la position initiale */
+    }
+}
+
+
+.download-url{
+    background-color: #181515d3;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    height: 50px;
+    width: 250px;
+}
+
+.download-url:hover{
+    color: #fff;
+    opacity: 0.8;
+}
+
+#file-label, #file-label-1, #file-label-2{
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.file{
+    border: 2px dashed #181515d3;
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
+    margin-top: 45px;
+    background-color: #CFE8FF;
+}
+
+.file-0{
+    border: 2px dashed #181515d3;
+    width: 100%;
+    height: 180px;
+    text-align: center;
+    margin-top: 0;
+    background-color: #CFE8FF;
+}
+
+.file-1{
+    border: 2px dashed #181515d3;
+    width: 100%;
+    height: 180px;
+    text-align: center;
+    margin-top: 0;
+    background-color: #CFE8FF;
+    margin-right: 10px;
+}
+
+.file-2{
+    border: 2px dashed #181515d3;
+    width: 100%;
+    height: 180px;
+    text-align: center;
+    margin-top: 0;
+    background-color: #CFE8FF;
+}
+
+.detect{
+    margin-top: 15px;
+}
+
+.file form{
+    margin-top: 70px;
+}
+
+.bxs-download, .bxs-down-arrow-circle{
+    margin-top: 15px;
+    font-size: 140px;
+}
+
+.im1,.im2{
+    margin-top: -8px;
+}
+
+.box-container-up{
+    background-color: #F9F9F9;
+    height: 400px; 
+    width: 100%;
+    border-radius: 15px;
+}
+
+.box-container-down{
+    background-color: #F9F9F9;
+    height: 100%;
+    width: 250px;
+    border-radius: 15px;
+    margin-left: 5px;
+}
+
+.bx-map, .bx-camera-movie{
+    font-size: 20px;
+}
+
+#submit{
+    background-color: #181515d3;
+    color: #fff;
+    height: 40px;
+    width: 35%;
+
+}
+
+#submit:hover, #submit:active{
+    opacity: 0.8;
+}
+
+
+.mask{
+    margin-top: 20px;
+    height: 360px;
+    width: 100%;
+}
+
+.date-item{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.btn-enter-date{
+    border: none;
+    background-color: #181515d3;
+    color: #fff;
+    width: 100px;
+    height: 23px;
+}
+
+.btn-enter-date:hover{
+    opacity: 0.6;
+}
+
+.btn-enter-date:active{
+    opacity: 0.8;
+}
+
+
+.error{
+    text-align: center;
+    background-color: red;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.refresh{
+    text-align: center;
+    margin-top: 50px;
+}
+
+.refresh a{
+    font-size: 20px;
+    color: #000;
+}
+
+#myChart, #myChart1, #myChart2{
+    width: 100%;
+    height: 100%;
+}
+
+.select-pos{
+    position: absolute;
+    top: 80px;
+    right: 25px;
+    width: 250px;
+
+}
+
+/* Exemple de définition de couleurs pour les classes spécifiques */
+.Building {
+    background-color: rgb(60, 16, 152); /* Violet */
+    width: 100%;
+    height: 10px;
+    border: none;
+    box-shadow: 0px 3px 2px 0px;
+}
+
+.Land {
+    background-color: rgb(132, 41, 246); /* Mauve */
+    width: 100%;
+    height: 10px;
+    border: none;
+    box-shadow: 0px 3px 2px 0px;
+}
+
+.Road {
+    background-color: rgb(110, 193, 228); /* Bleu clair */
+    width: 100%;
+    height: 10px;
+    border: none;
+    box-shadow: 0px 3px 2px 0px;
+}
+
+.Vegetation {
+    background-color: rgb(254, 221, 58); /* Jaune */
+    width: 100%;
+    height: 10px;
+    border: none;
+    box-shadow: 0px 3px 2px 0px;
+}
+
+.Water {
+    background-color: rgb(226, 169, 41); /* Jaune foncé */
+    width: 100%;
+    height: 10px;
+    border: none;
+    box-shadow: 0px 3px 2px 0px;
+}
+
+.Cultivated {
+    background-color: rgb(0, 255, 35); /* Vert */
+    width: 100%;
+    height: 10px;
+    border: none;
+    box-shadow: 0px 3px 2px 0px;
+}
+
+.Uncultivated {
+    background-color: rgb(255, 0, 0); /* Rouge */
+    width: 100%;
+    height: 10px;
+    border: none;
+    box-shadow: 0px 3px 2px 0px;
+}
+
+.Foot {
+    background-color: rgb(0, 0, 255); /* Bleu */
+    width: 100%;
+    height: 10px;
+    border: none;
+    box-shadow: 0px 3px 2px 0px;
+}
+
+.Change{
+    background-color: #fff;
+    width: 100%;
+    height: 10px;
+    border: 0.5px solid #6d6d6d;
+    box-shadow: 0px 3px 2px 0px;
+}

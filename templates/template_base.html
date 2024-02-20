@@ -1,0 +1,97 @@
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/print.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Inclure Cropper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+    <!-- Inclure la feuille de style de Cropper.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+
+    <!-- html2canvas proxy -->
+    <script src="https://unpkg.com/html2canvas-proxy/dist/html2canvas-proxy.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <title>{% block titre %}{% endblock %}</title>
+    
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+      <a href="{% url 'home' %}" class="brand">
+            <i class='bx bx-world'></i>
+          <span class="text">IRD&UMMISCO</span>
+      </a>
+      <ul class="side-menu top">
+        {% url 'home' as home_url %}
+        {% url 'detection' as detection_url %}
+        {% url 'map' as map_url %}
+        {% url 'real_time' as real_time_url %}
+        <li {% if request.path == home_url %}class="active"{% endif %}>
+            <a href="{{home_url}}">
+                <i class='bx bxs-dashboard' ></i>
+                <span class="text">Générer une carte</span>
+            </a>
+        </li>
+        <li {% if request.path == detection_url %}class="active"{% endif %}>
+            <a href="{{detection_url}}">
+                <i class='bx bxs-doughnut-chart' ></i>
+                <span class="text">Détecter les changements</span>
+            </a>
+        </li>
+        <!---
+        <li {% if request.path == map_url %}class="active"{% endif %}>
+            <a href="{{map_url}}">
+                <i class='bx bx-map'></i>
+                <span class="text">Collecte d'images</span>
+            </a>
+        </li>
+        -->
+
+      </ul>
+      <ul class="side-menu" style="display: none;">
+          <li>
+              <a href="#">
+                  <i class='bx bxs-cog' ></i>
+                  <span class="text">Paramètre</span>
+              </a>
+          </li>
+          <li>
+              <a href="#" class="logout">
+                  <i class='bx bxs-log-out-circle' ></i>
+                  <span class="text">Déconnexion</span>
+              </a>
+          </li>
+      </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+    {% block body %}{% endblock %}
+
+  
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/style.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/print.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    
+</body>
+</html>

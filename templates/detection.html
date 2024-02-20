@@ -1,0 +1,347 @@
+{% extends 'template_base.html' %}
+{% load static %}
+{% block titre %}Detection{% endblock %}
+
+{% block body %}
+<!-- CONTENT -->
+<section id="content">
+    <!-- NAVBAR -->
+    <nav>
+        <i class='bx bx-menu' ></i>
+        
+        <form action="#">
+            <div class="form-input" hidden>
+                <input type="search" placeholder="Search...">
+                <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+            </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden>
+        <label for="switch-mode" class="switch-mode"></label>
+ 
+        <a href="#" class="profile">
+            <img src="{% static 'images/people.png'%}">
+        </a>
+    </nav>
+    <!-- NAVBAR -->
+
+    <!-- MAIN -->
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Dashboard</h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'home' %}">Dashboard</a>
+                    </li>
+                    <li><i class='bx bx-chevron-right' ></i></li>
+                    <li>
+                        <a class="active" href="{% url 'home' %}">Accueil</a>
+                    </li>
+                </ul>
+            </div>
+
+            {% if areas_changed %}
+                <a href="#" class="btn-download btn-download-2">
+                    <i class="fa-solid fa-print"></i>
+                    <span class="text">Imprimer le rapport</span>
+                </a>
+            {% endif %}
+        </div>
+        <div class="container" id="print-content-2">
+            {% if areas_changed %}
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-center">RAPPORT DE CHANGEMENTS</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <span class="Land-s">Terre</span><br><button class="Land"></button>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col">
+                                <span class="Vegetation-s">Vegetation</span><br><button class="Vegetation"></button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <span class="Water-s">Eau</span><br><button class="Water"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <span class="Road-s">Route</span><br><button class="Road"></button>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col">
+                                <span class="Foot-s">Terrain</span><br><button class="Foot"></button>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col">
+                                <span class="Cultivated-s">Champs Cultivé</span><br><button class="Cultivated"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <span class="Uncultivated-s">Champs non Cultivé</span><br><button class="Uncultivated"></button>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col">
+                                <span class="Building-s">Bâtiments</span><br><button class="Building"></button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <span class="Change-s">Changements</span><br><button class="Change"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row mt-4">
+                <div class="col box-container-up">
+                    {% if message %}
+                        <h3 class="error">{{message}}</h3>
+                        <div class="refresh" >
+                            <a href="{% url 'detection' %}">Insérer des images</a>
+                        </div>
+                    {% else %}
+                        {% if areas_changed %}   
+                            <div class="row">
+                                <div class="col box-container-down mr-2">
+                                    <div style="height:60vh; width:100%;">
+                                        <canvas id="hist"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col box-container-down table-custom">
+                                    <img src="data:image/jpeg;base64,{{ areas_changed }}" alt="Colored Mask" class="mask">
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="file">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <!--
+                                    <div class="row">
+                                        <div class="col">
+                                            <select name="operations" class="form-select form-select-sm select-pos" aria-label=".form-select-sm example">
+                                                <option value="L" selected>Log-ratio (recommandé)</option>
+                                                <option value="A">Différence Absolue</option>
+                                                <option value="R">Différence Relative</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    -->
+                                    <div class="row">
+                                        <div class="col file-1" id="file-drop-area-1">
+                                            <input type="file" name="file1" id="file-input-1" hidden>
+                                            <label for="file-input-1" id="file-label-1" class="download">
+                                                <i class='bx bxs-download'></i>
+                                                <h6 class="im1">Image antérieure</h6>
+                                            </label>
+                                        </div>
+                                        <div class="col file-2" id="file-drop-area-2">
+                                            <input type="file" name="file2" id="file-input-2" hidden>
+                                            <label for="file-input-2" id="file-label-2" class="download">
+                                                <i class='bx bxs-download'></i>
+                                                <h6 class="im2">Image actuelle</h6>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <input type="submit" name="submit" class="detect" id="submit" value="Détecter">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="telechargement" id="spinnerDiv">
+                                <h3>Cette opération peut prendre quelques minutes...</h3>
+                                <div class="spinner mt-4"></div>
+                            </div> 
+                        {% endif %}
+                    {% endif %} 
+                </div>
+            </div>
+
+            {% if areas_changed %}
+
+                <div class="row mt-3">
+                    <div class="col box-container-down mr-2">
+                        <h4 class="text-center border-bottom border-dark">Répartition Passée</h4>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">classes</th>
+                                <th scope="col">taux de présence</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Bâtiments</td>
+                                <td id="building1" data-building1="{{Building1|floatformat:'2' }}">{{Building1|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Terre</td>
+                                <td id="land1" data-land1="{{Land1|floatformat:'2' }}">{{Land1|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Routes</td>
+                                <td id="road1" data-road1="{{Road1|floatformat:'2' }}">{{Road1|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Végétation</td>
+                                <td id="vegetation1" data-vegetation1="{{Vegetation1|floatformat:'2' }}">{{Vegetation1|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Eau</td>
+                                <td id="water1" data-water1="{{Water1|floatformat:'2' }}">{{Water1|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Champs cultivés</td>
+                                <td id="cultivated1" data-cultivated1="{{Cultivated_field1|floatformat:'2' }}">{{Cultivated_field1|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Champs non cultivés</td>
+                                <td id="uncultivated1" data-uncultivated1="{{Uncultivated_field1|floatformat:'2' }}">{{Uncultivated_field1|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Terrain de football</td>
+                                <td id="football1" data-football1="{{Football_field1|floatformat:'2' }}">{{Football_field1|floatformat:"2" }} %</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <div class="col box-container-down">
+                        <h4 class="text-center border-bottom border-dark">Répartition Actuelle</h4>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">classes</th>
+                                <th scope="col">taux de présence</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Bâtiments</td>
+                                <td id="building2" data-building2="{{Building2|floatformat:'2' }}">{{Building2|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Terre</td>
+                                <td id="land2" data-land2="{{Land2|floatformat:'2' }}">{{Land2|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Routes</td>
+                                <td id="road2" data-road2="{{Road2|floatformat:'2' }}">{{Road2|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Végétation</td>
+                                <td id="vegetation2" data-vegetation2="{{Vegetation2|floatformat:'2' }}">{{Vegetation2|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Eau</td>
+                                <td id="water2" data-water2="{{Water2|floatformat:'2' }}">{{Water2|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Champs cultivés</td>
+                                <td id="cultivated2" data-cultivated2="{{Cultivated_field2|floatformat:'2' }}">{{Cultivated_field2|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Champs non cultivés</td>
+                                <td id="uncultivated2" data-uncultivated2="{{Uncultivated_field2|floatformat:'2' }}">{{Uncultivated_field2|floatformat:"2" }} %</td>
+                            </tr>
+                            <tr>
+                                <td>Terrain de football</td>
+                                <td id="football2" data-football2="{{Football_field2|floatformat:'2' }}">{{Football_field2|floatformat:"2" }} %</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+                <div class="row mt-3">
+                
+                    <div class="col box-container-down">
+                        <h4 class="text-center border-bottom border-dark">Quantification des changements</h4>
+                        <div class="row">
+                            <div class="col">
+                                <div style="height:58vh; width:100%;">
+                                    <canvas id="myChart3"></canvas>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">classes</th>
+                                        <th scope="col">taux de changements</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Bâtiments</td>
+                                        <td>{{diff1|floatformat:"2" }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Terre</td>
+                                        <td>{{diff2|floatformat:"2" }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Routes</td>
+                                        <td>{{diff3|floatformat:"2" }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Végétation</td>
+                                        <td>{{diff4|floatformat:"2" }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Eau</td>
+                                        <td>{{diff5|floatformat:"2" }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Champs cultivés</td>
+                                        <td>{{diff6|floatformat:"2" }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Champs non cultivés</td>
+                                        <td>{{diff7|floatformat:"2" }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Terrain de football</td>
+                                        <td>{{diff8|floatformat:"2" }} %</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </main> 
+
+    <!-- MAIN -->
+
+</section>
+<!-- CONTENT -->
+{% endblock %}
